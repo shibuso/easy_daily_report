@@ -1,0 +1,32 @@
+!!! 5
+%html{lang: 'ja'}
+  %head
+    %meta{charset: 'UTF-8'}
+    %title= @title || '日報システム'
+    = stylesheet_link_tag    'bootstrap_loader', media: 'all'
+    = stylesheet_link_tag    'page_index', media: 'all'
+    = javascript_include_tag 'application'
+    = csrf_meta_tags
+  %body
+
+    .site-wrapper
+      .site-wrapper-inner
+        .form-signin-container
+          = form_for :user, :url => session_path(:user), html: {class: 'form-signin'} do |f|
+            %h2.form-signin-heading 日報システム
+            %label.sr-only{for: "user_email"} Email address
+            = f.text_field :email, class: 'form-control', type: 'email', placeholder: "Email address", required: true
+            %label.sr-only{for: "user_password"} Password
+            = f.password_field :password, class: 'form-control', placeholder: 'Password', required: true
+            .checkbox
+              %label
+                = f.check_box :remember_me
+                ログイン状態を保存
+            = f.submit 'ログイン', class: 'btn btn-lg btn-primary btn-block'
+          = link_to 'パスワードを忘れた場合はこちら', '#'
+          %p 新規登録は管理者に申請してください。
+
+        .footer
+          Copyright&copy;
+          = link_to 'shibuso.net', 'http://shibuso.net', target: '_blank'
+          All Rights Reserved.

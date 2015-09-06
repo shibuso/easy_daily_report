@@ -1,0 +1,8 @@
+.container
+
+  %ol.breadcrumb
+    %li= link_to '顧客一覧', customers_path
+    %li.active 顧客新規登録
+
+  .contents-main
+    = render 'form'

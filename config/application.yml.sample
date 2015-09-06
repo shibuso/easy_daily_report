@@ -1,0 +1,14 @@
+defaults: &defaults
+  user_types:
+    admin:   'admin'
+    member:  'member'
+    partner: 'partner'
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults

@@ -53,3 +53,9 @@ gem 'bootstrap-sass', '~> 3.3.5'
 
 # Haml
 gem 'haml'
+
+# select2
+gem 'select2-rails'
+
+# Constant
+gem 'settingslogic'

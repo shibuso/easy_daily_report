@@ -1,6 +1,32 @@
 class Users::RegistrationsController < Devise::RegistrationsController
 # before_filter :configure_sign_up_params, only: [:create]
 # before_filter :configure_account_update_params, only: [:update]
+before_filter :require_admin, only: [:custom_new, :custom_create]
+  def custom_new
+    @user = User.new
+  end
+
+  def custom_create
+    @user = User.new(user_params)
+
+    if @user.save
+      redirect_to reports_url, notice: '正常にユーザが登録されました。'
+    else
+      render :custom_new
+    end
+  end
+
+  private
+
+  def require_admin
+    redirect_to root_url if current_user.blank?
+
+    redirect_to reports_url unless current_user.admin?
+  end
+
+  def user_params
+    devise_parameter_sanitizer.sanitize(:sign_up)
+  end
 
   # GET /resource/sign_up
   # def new

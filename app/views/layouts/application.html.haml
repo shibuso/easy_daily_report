@@ -9,14 +9,17 @@
     = csrf_meta_tags
   %body
 
-    %nav.navbar.navbar-inverse.navbar-fixed-top
+    %nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
           = link_to '日報システム', reports_path, class: 'navbar-brand'
         #navbar.navbar-collapse.collapse
           %ul.nav.navbar-nav
-            %li= link_to '自分の投稿', '#'
-            %li= link_to 'プロジェクト', '#'
+            %li= link_to '新規投稿', '#'
+            %li= link_to 'プロジェクト', projects_path
+            %li= link_to '顧客', customers_path
+            - if current_user.admin? || current_user.member?
+              %li= link_to 'ユーザ', users_path
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown
               = link_to '#', class: 'dropdown-toggle', :'data-toggle' => 'dropdown', role: 'button', aria: { haspopup: true, expanded: false } do
@@ -26,3 +29,33 @@
                 %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
 
     = yield
+
+    - if notice.present?
+      :javascript
+        var n = noty({
+          layout: 'topCenter',
+          type: 'information',
+          text: "#{notice}",
+          animation: {
+            open: {height: 'toggle'},
+            close: {height: 'toggle'},
+            easing: 'swing',
+            speed: 500
+          },
+          timeout: 5000
+        });
+
+    - if alert.present?
+      :javascript
+        var n = noty({
+          layout: 'topCenter',
+          type: 'error',
+          text: "#{alert}",
+          animation: {
+            open: {height: 'toggle'}, // jQuery animate function property object
+            close: {height: 'toggle'}, // jQuery animate function property object
+            easing: 'swing', // easing
+            speed: 500 // opening & closing animation speed
+          },
+          timeout: 5000
+        });

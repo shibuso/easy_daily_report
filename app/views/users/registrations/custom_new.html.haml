@@ -1,0 +1,50 @@
+.container
+
+  .contents-main
+    %h1 ユーザ登録
+
+    - if @user.errors.any?
+      .alert.alert-danger
+        = "#{@user.errors.count}件のエラーがあります。"
+        %ul
+          - @user.errors.full_messages.each do |msg|
+            %li= msg
+
+    = form_for @user, url: user_registration_path, html: { class: 'form-horizontal' } do |f|
+
+      .form-group
+        = f.label :name, class: 'col-sm-2 control-label'
+        .col-sm-6
+          = f.text_field :name, autofocus: true
+
+      .form-group
+        = f.label :email, class: 'col-sm-2 control-label'
+        .col-sm-6
+          = f.email_field :email
+
+      .form-group
+        = f.label :user_type, class: 'col-sm-2 control-label'
+        .col-sm-6
+          %label.radio-inline
+            = f.radio_button :user_type, Settings.user_types.admin
+            = t('activerecord.attributes.user.user_types.admin')
+          %label.radio-inline
+            = f.radio_button :user_type, Settings.user_types.member, { checked: true }
+            = t('activerecord.attributes.user.user_types.member')
+          %label.radio-inline
+            = f.radio_button :user_type, Settings.user_types.partner
+            = t('activerecord.attributes.user.user_types.partner')
+
+      .form-group
+        = f.label :password, class: 'col-sm-2 control-label'
+        .col-sm-6
+          = f.password_field :password, autocomplete: 'off'
+
+      .form-group
+        = f.label :password_confirmation, class: 'col-sm-2 control-label'
+        .col-sm-6
+          = f.password_field :password_confirmation, autocomplete: 'off'
+
+      .form-group
+        .col-sm-offset-2.col-sm-10
+          = f.submit class: 'btn btn-primary'

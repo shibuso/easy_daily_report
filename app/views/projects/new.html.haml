@@ -1,0 +1,8 @@
+.container
+
+  %ol.breadcrumb
+    %li= link_to 'プロジェクト一覧', projects_path
+    %li.active プロジェクト新規登録
+
+  .contents-main
+    = render 'form'

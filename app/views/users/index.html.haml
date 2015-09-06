@@ -1,0 +1,23 @@
+.container
+  .contents-main
+    %h1 ユーザ一覧
+
+    - if current_user.admin?
+      .mb15
+        = link_to '新規作成', user_signup_path, class: 'btn btn-info'
+
+    - if @users.present?
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th= t('activerecord.attributes.user.name')
+            %th= t('activerecord.attributes.user.user_type')
+            %th 操作
+        %tbody
+          - @users.each do |user|
+            %tr
+              %td= user.name
+              %td= t("activerecord.attributes.user.user_types.#{user.user_type}")
+              %td
+    - else
+      現在登録されているユーザはいません。

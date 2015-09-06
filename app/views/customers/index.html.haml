@@ -1,0 +1,23 @@
+.container
+  .contents-main
+    %h1 顧客一覧
+
+    .mb15
+      = link_to '新規作成', new_customer_path, class: 'btn btn-info'
+
+    - if @customers.present?
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th= t('activerecord.attributes.customer.name')
+            %th 操作
+        %tbody
+          - @customers.each do |customer|
+            %tr
+              %td= customer.name
+              %td
+                = link_to '編集', edit_customer_path(customer), class: 'btn btn-xs btn-info'
+                = link_to '削除', customer_path(customer), method: :delete, class: 'btn btn-xs btn-danger', :'data-confirm' => '本当に削除してもよろしいでしょうか？'
+
+    - else
+      現在登録されている顧客はいません。

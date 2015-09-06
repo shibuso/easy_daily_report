@@ -11,8 +11,33 @@
  * file per style scope.
  *
  *= require_self
+ *= require select2
+ *= require select2-bootstrap
  */
 
 body {
   padding-top: 70px;
+  background-color: #f8faf8;
+}
+
+h1 {
+  font-size: 32px;
+}
+
+.mt15 {
+  margin-top: 15px;
+}
+
+.mb15 {
+  margin-bottom: 15px;
+}
+
+.navbar-default {
+  background-color: #ffffff;
+}
+
+.contents-main {
+  background-color: #ffffff;
+  border-radius: 4px;
+  padding: 10px;
 }

@@ -1,0 +1,25 @@
+.container
+  .contents-main
+    %h1 プロジェクト一覧
+
+    .mb15
+      = link_to '新規作成', new_project_path, class: 'btn btn-info'
+
+    - if @projects.present?
+      %table.table.table-striped.table-hover
+        %thead
+          %tr
+            %th= t('activerecord.attributes.project.name')
+            %th= t('activerecord.attributes.customer.name')
+            %th 操作
+        %tbody
+          - @projects.each do |project|
+            %tr
+              %td= project.name
+              %td= project.customer.name
+              %td
+                = link_to '編集', edit_project_path(project), class: 'btn btn-xs btn-info'
+                = link_to '削除', project_path(project), method: :delete, class: 'btn btn-xs btn-danger', :'data-confirm' => '本当に削除してもよろしいでしょうか？'
+
+    - else
+      現在登録されているプロジェクトはありません。

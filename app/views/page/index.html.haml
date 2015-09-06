@@ -12,7 +12,7 @@
     .site-wrapper
       .site-wrapper-inner
         .form-signin-container
-          = form_for :user, :url => session_path(:user), html: {class: 'form-signin'} do |f|
+          = form_for :user, :url => user_session_path, html: {class: 'form-signin'} do |f|
             %h2.form-signin-heading 日報システム
             %label.sr-only{for: "user_email"} Email address
             = f.text_field :email, class: 'form-control', type: 'email', placeholder: "Email address", required: true
@@ -30,3 +30,33 @@
           Copyright&copy;
           = link_to 'shibuso.net', 'http://shibuso.net', target: '_blank'
           All Rights Reserved.
+
+    - if notice.present?
+      :javascript
+        var n = noty({
+          layout: 'topCenter',
+          type: 'information',
+          text: "#{notice}",
+          animation: {
+            open: {height: 'toggle'},
+            close: {height: 'toggle'},
+            easing: 'swing',
+            speed: 500
+          },
+          timeout: 5000
+        });
+
+    - if alert.present?
+      :javascript
+        var n = noty({
+          layout: 'topCenter',
+          type: 'error',
+          text: "#{alert}",
+          animation: {
+            open: {height: 'toggle'}, // jQuery animate function property object
+            close: {height: 'toggle'}, // jQuery animate function property object
+            easing: 'swing', // easing
+            speed: 500 // opening & closing animation speed
+          },
+          timeout: 5000
+        });

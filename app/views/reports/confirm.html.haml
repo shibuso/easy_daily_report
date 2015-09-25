@@ -1,3 +1,5 @@
+- total_work_time = 0
+
 .container
   %ol.breadcrumb
     %li= link_to '日報一覧', reports_path
@@ -10,25 +12,36 @@
           %th= t('activerecord.attributes.report.target_date')
           %td
             = @report.target_date
-            = hidden_field_tag "report[target_date]", params["report"]["target_date"]
-        - params["report"]["works_attributes"].each do |key, work|
-          - if work["id"].present?
-            = hidden_field_tag "report[works_attributes][#{key}][id]", work["id"]
-          = hidden_field_tag "report[works_attributes][#{key}][_destroy]", work["_destroy"]
-          - if work["_destroy"] == "false"
+            = hidden_field_tag 'report[target_date]', params['report']['target_date']
+
+        - params['report']['works_attributes'].each do |key, work|
+          - if work['id'].present?
+            = hidden_field_tag "report[works_attributes][#{key}][id]", work['id']
+          = hidden_field_tag "report[works_attributes][#{key}][_destroy]", work['_destroy']
+          - if work['_destroy'] == 'false'
             %tr
               %th= t('activerecord.attributes.work.project_id')
               %td
-                = Project.find(work["project_id"]).name_with_customer
-                = hidden_field_tag "report[works_attributes][#{key}][project_id]", work["project_id"]
+                = Project.find(work['project_id']).name_with_customer
+                = hidden_field_tag "report[works_attributes][#{key}][project_id]", work['project_id']
             %tr
               %th= t('activerecord.attributes.work.time')
               %td
-                = work["time"]
-                = hidden_field_tag "report[works_attributes][#{key}][time]", work["time"]
+                = work['time']
+                = hidden_field_tag "report[works_attributes][#{key}][time]", work['time']
+                - total_work_time += work['time'].to_f if work['time'].present?
             %tr
               %th= t('activerecord.attributes.work.detail')
               %td
-                = work["detail"]
-                = hidden_field_tag "report[works_attributes][#{key}][detail]", work["detail"]
+                = simple_format(h(work['detail']))
+                = hidden_field_tag "report[works_attributes][#{key}][detail]", work['detail']
+        %tr
+          %th 合計作業時間
+          %td= total_work_time
+        %tr
+          %th= t('activerecord.attributes.report.question')
+          %td= simple_format(h(@report.question))
+        %tr
+          %th= t('activerecord.attributes.report.impression')
+          %td= simple_format(h(@report.impression))
       = f.submit class: 'btn btn-primary'

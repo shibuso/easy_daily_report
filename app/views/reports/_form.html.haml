@@ -21,8 +21,10 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       = link_to_add_association 'プロジェクトの追加', f, :works, class: 'btn btn-info'
-      -#.mt15
-      -#  作業時間：*時間
+      .mt15
+        合計作業時間：
+        %span.total-time 0
+        時間
 
   .form-group
     = f.label :question, class: 'col-sm-2 control-label'
@@ -52,6 +54,11 @@
       setTimeout(function() { $('a.add_fields').click(); }, 100);
     }
 
+    calcTotalWorkTime();
+    $('input.work-time').blur(function() {
+      calcTotalWorkTime();
+    });
+
     $('a.add_fields').
       data('association-insertion-method', 'append').
       data('association-insertion-node', '.works');
@@ -63,8 +70,21 @@
           placeholder: '選択してください',
           allowClear: true
         });
+        $('input.work-time').blur(function() {
+          calcTotalWorkTime();
+        });
       })
       .on("cocoon:after-remove", function() {
-        //TODO 作業時間の再計算
+        calcTotalWorkTime();
       });
   });
+
+  function calcTotalWorkTime() {
+    var totalTime = 0;
+    console.log('detect');
+    $('input.work-time').each(function() {
+      totalTime += parseFloat($(this).val());
+    });
+    $('.total-time').html(totalTime);
+  }
+

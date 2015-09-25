@@ -1,0 +1,34 @@
+.container
+  %ol.breadcrumb
+    %li= link_to '日報一覧', reports_path
+    %li.active 日報投稿確認
+
+  .contents-main
+    = form_for(@report) do |f|
+      %table.table
+        %tr
+          %th= t('activerecord.attributes.report.target_date')
+          %td
+            = @report.target_date
+            = hidden_field_tag "report[target_date]", params["report"]["target_date"]
+        - params["report"]["works_attributes"].each do |key, work|
+          - if work["id"].present?
+            = hidden_field_tag "report[works_attributes][#{key}][id]", work["id"]
+          = hidden_field_tag "report[works_attributes][#{key}][_destroy]", work["_destroy"]
+          - if work["_destroy"] == "false"
+            %tr
+              %th= t('activerecord.attributes.work.project_id')
+              %td
+                = Project.find(work["project_id"]).name_with_customer
+                = hidden_field_tag "report[works_attributes][#{key}][project_id]", work["project_id"]
+            %tr
+              %th= t('activerecord.attributes.work.time')
+              %td
+                = work["time"]
+                = hidden_field_tag "report[works_attributes][#{key}][time]", work["time"]
+            %tr
+              %th= t('activerecord.attributes.work.detail')
+              %td
+                = work["detail"]
+                = hidden_field_tag "report[works_attributes][#{key}][detail]", work["detail"]
+      = f.submit class: 'btn btn-primary'

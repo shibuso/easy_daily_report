@@ -1,0 +1,20 @@
+.nested-fields
+  = f.hidden_field :id
+  .form-group
+    = f.label :project_id, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.collection_select :project_id, @projects, :id, :name_with_customer, { include_blank: true }, { class: 'form-control' }
+
+  .form-group
+    = f.label :time, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.text_field :time, class: 'form-control'
+
+  .form-group
+    = f.label :detail, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.text_area :detail, class: 'form-control'
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = link_to_remove_association "プロジェクトの削除", f, class: 'btn btn-danger'

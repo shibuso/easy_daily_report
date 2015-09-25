@@ -1,0 +1,7 @@
+.container
+  %ol.breadcrumb
+    %li= link_to '日報一覧', reports_path
+    %li.active 日報編集
+
+  .contents-main
+    = render 'form'

@@ -5,6 +5,7 @@ ja:
       project: プロジェクト
       report: 日報
       user: ユーザ
+      work: 仕事
 
     attributes:
       customer:
@@ -13,6 +14,10 @@ ja:
         name: プロジェクト名
         customer_id: 顧客
         user_ids: 参加者
+      report:
+        target_date: 日付
+        question: 疑問点
+        impression: 感想
       user:
         name: 名前
         email: メールアドレス
@@ -23,3 +28,8 @@ ja:
           admin: 管理者
           member: 社員
           partner: パートナー
+      work:
+        report_id: 日報
+        project_id: プロジェクト
+        time: 時間
+        detail: 詳細

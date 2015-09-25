@@ -1,0 +1,68 @@
+= form_for [:confirm, @report], html: { class: 'form-horizontal' } do |f|
+  - if @report.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@report.errors.count, "error")
+        prohibited this report from being saved:
+
+      %ul
+        - @report.errors.full_messages.each do |message|
+          %li= message
+
+  .form-group
+    = f.label :target_date, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.text_field :target_date, class: 'form-control'
+
+  .works
+    = f.fields_for :works do |work|
+      = render 'work_fields', f: work
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = link_to_add_association 'プロジェクトの追加', f, :works, class: 'btn btn-info'
+      -#.mt15
+      -#  作業時間：*時間
+
+  .form-group
+    = f.label :question, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.text_area :question, class: 'form-control'
+
+  .form-group
+    = f.label :impression, class: 'col-sm-2 control-label'
+    .col-sm-6
+      = f.text_area :impression, class: 'form-control impression-form'
+
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit '確認', class: 'btn btn-primary'
+
+:javascript
+  $(function() {
+    $('select').select2({
+      theme: 'bootstrap',
+      placeholder: '選択してください',
+      allowClear: true
+    });
+
+    if ($('form').attr('method') == 'post' && $('.nested-fields').size() == 0) {
+      setTimeout(function() { $('a.add_fields').click(); }, 100);
+    }
+
+    $('a.add_fields').
+      data('association-insertion-method', 'append').
+      data('association-insertion-node', '.works');
+
+    $('.works')
+      .on('cocoon:after-insert', function(e, added_work) {
+        added_work.find('select').select2({
+          theme: 'bootstrap',
+          placeholder: '選択してください',
+          allowClear: true
+        });
+      })
+      .on("cocoon:after-remove", function() {
+        //TODO 作業時間の再計算
+      });
+  });

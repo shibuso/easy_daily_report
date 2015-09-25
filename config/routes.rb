@@ -11,7 +11,11 @@ Rails.application.routes.draw do
     delete 'sign_out' => 'users/sessions#destroy', :as => :destroy_user_session
   end
 
-  resources :reports
+  resources :reports do
+    put :confirm, on: :member
+    patch :confirm, on: :member
+    post :confirm, on: :collection
+  end
   resources :projects
   resources :customers, except: [:show]
   resources :users, only: [:index]

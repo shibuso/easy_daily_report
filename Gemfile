@@ -59,3 +59,6 @@ gem 'select2-rails'
 
 # Constant
 gem 'settingslogic'
+
+# Nested form
+gem 'cocoon'

@@ -15,4 +15,4 @@
 //= require bootstrap-sprockets
 //= require lib/jquery.noty.packaged.min
 //= require select2
-//= require select2_locale_ja
+//= require cocoon

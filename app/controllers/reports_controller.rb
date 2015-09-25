@@ -11,6 +11,7 @@ class ReportsController < ApplicationController
 
   def new
     @report = Report.new
+    @report.target_date = Date.today
     @projects = current_user.projects
   end
 
@@ -20,6 +21,8 @@ class ReportsController < ApplicationController
 
   def confirm
     # render text: params and return
+    @projects = current_user.projects
+
     if request.post?
       @report = Report.new(report_params)
     else
@@ -27,10 +30,20 @@ class ReportsController < ApplicationController
       @report.attributes = report_params
     end
 
+    if params['report']['works_attributes'].blank?
+      flash.now[:alert] = 'プロジェクトを追加してください。'
+      render :action => request.post? ? :new : :edit and return
+    end
+
+    params['report']['works_attributes'].each do |key, work|
+      if (work['project_id'].blank?)
+        flash.now[:alert] = 'プロジェクトを指定してください。'
+        render :action => request.post? ? :new : :edit and return
+      end
+    end
+
     unless @report.valid?
-      @projects = current_user.projects
-      render :action => request.post? ? :new : :edit
-      return
+      render :action => request.post? ? :new : :edit and return
     end
   end
 
@@ -60,13 +73,13 @@ class ReportsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_report
-      @report = Report.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_report
+    @report = Report.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def report_params
-      params.require(:report).permit(:id, :target_date, :question, :impression, works_attributes: [:id, :project_id, :report_id, :time, :detail, :_destroy])
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def report_params
+    params.require(:report).permit(:id, :target_date, :question, :impression, works_attributes: [:id, :project_id, :report_id, :time, :detail, :_destroy])
+  end
 end

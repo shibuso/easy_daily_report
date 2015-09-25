@@ -33,3 +33,8 @@ ja:
         project_id: プロジェクト
         time: 時間
         detail: 詳細
+      works: # cocoonのため
+        report_id: 日報
+        project_id: プロジェクト
+        time: 時間
+        detail: 詳細

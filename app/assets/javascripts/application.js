@@ -16,3 +16,4 @@
 //= require lib/jquery.noty.packaged.min
 //= require select2
 //= require cocoon
+//= require jquery-ui/datepicker

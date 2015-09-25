@@ -62,3 +62,6 @@ gem 'settingslogic'
 
 # Nested form
 gem 'cocoon'
+
+# jQuery UI
+gem 'jquery-ui-rails'

@@ -43,6 +43,31 @@ h1 {
   padding: 10px;
 }
 
+article.contents-main {
+  margin-bottom: 15px;
+
+  h1 {
+    font-size: 18px;
+    margin: 0 0 10px 0;
+  }
+
+  section {
+    margin-bottom: 5px;
+
+    h2 {
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 0 5px 0;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0 0 5px 0;
+    }
+  }
+}
+
 .works .nested-fields textarea {
   min-height: 100px;
 }

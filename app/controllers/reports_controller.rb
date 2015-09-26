@@ -3,7 +3,8 @@ class ReportsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @reports = Report.all
+    page = params[:page].presence || 1
+    @reports = Report.order_update_newest.page(page).per(Settings.report.per)
   end
 
   def show

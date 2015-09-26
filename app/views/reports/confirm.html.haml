@@ -34,14 +34,21 @@
               %th= t('activerecord.attributes.work.detail')
               %td
                 = simple_format(h(work['detail']))
-                = hidden_field_tag "report[works_attributes][#{key}][detail]", work['detail']
+                .hidden
+                  = text_area_tag "report[works_attributes][#{key}][detail]", work['detail'], readonly: true
         %tr
           %th 合計作業時間
           %td= total_work_time
         %tr
           %th= t('activerecord.attributes.report.question')
-          %td= simple_format(h(@report.question))
+          %td
+            = simple_format(h(@report.question))
+            .hidden
+              = text_area_tag 'report[question]', params['report']['question'], readonly: true
         %tr
           %th= t('activerecord.attributes.report.impression')
-          %td= simple_format(h(@report.impression))
+          %td
+            = simple_format(h(@report.impression))
+            .hidden
+              = text_area_tag 'report[impression]', params['report']['impression'], readonly: true
       = f.submit class: 'btn btn-primary'

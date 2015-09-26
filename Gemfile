@@ -65,3 +65,6 @@ gem 'cocoon'
 
 # jQuery UI
 gem 'jquery-ui-rails'
+
+# pagination
+gem 'kaminari'

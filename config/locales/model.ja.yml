@@ -13,6 +13,10 @@ ja:
       project:
         name: プロジェクト名
         customer_id: 顧客
+        status: 状態
+        status_types:
+          active: 稼働中
+          closed: 終了
         user_ids: 参加者
       report:
         target_date: 日付

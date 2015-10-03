@@ -6,6 +6,8 @@ class Project < ActiveRecord::Base
 
   validates :name, :customer_id, :status, presence: true
 
+  scope :active, -> { where(status: Settings.project.status_types.active) }
+
   def name_with_customer
     "#{customer.name}/#{name}"
   end

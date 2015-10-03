@@ -1,13 +1,10 @@
 = form_for @project, html: { class: 'form-horizontal' } do |f|
   - if @project.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@project.errors.count, "error")
-        prohibited this project from being saved:
-
+    .alert.alert-danger
+      = "#{@project.errors.count}件のエラーがあります。"
       %ul
-        - @project.errors.full_messages.each do |message|
-          %li= message
+        - @project.errors.full_messages.each do |msg|
+          %li= msg
 
   .form-group
     = f.label :customer_id, class: 'col-sm-2 control-label'
@@ -17,6 +14,15 @@
     = f.label :name, class: 'col-sm-2 control-label'
     .col-sm-6
       = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :status, class: 'col-sm-2 control-label'
+    .col-sm-6
+      %label.radio-inline
+        = f.radio_button :status, Settings.project.status_types.active
+        = t('activerecord.attributes.project.status_types.active')
+      %label.radio-inline
+        = f.radio_button :status, Settings.project.status_types.closed
+        = t('activerecord.attributes.project.status_types.closed')
   .form-group
     = f.label :user_ids, class: 'col-sm-2 control-label'
     .col-sm-6

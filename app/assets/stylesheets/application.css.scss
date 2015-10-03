@@ -52,7 +52,7 @@ article.contents-main {
   }
 
   section {
-    margin-bottom: 5px;
+    margin-bottom: 15px;
 
     h2 {
       font-size: 16px;
@@ -63,8 +63,18 @@ article.contents-main {
     h3 {
       font-size: 14px;
       font-weight: bold;
-      margin: 0 0 5px 0;
+      margin: 0 0 5px 5px;
     }
+  }
+
+  footer.report-menu a {
+    padding-left: 5px;
+    border-left: 1px solid #000000;
+  }
+
+  footer.report-menu a:first-child {
+    padding-left: 0;
+    border: none;
   }
 }
 

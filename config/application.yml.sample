@@ -1,4 +1,10 @@
 defaults: &defaults
+  project:
+    status_types:
+      active: 'active'
+      closed: 'closed'
+  report:
+    per: 25
   user_types:
     admin:   'admin'
     member:  'member'

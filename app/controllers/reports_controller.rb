@@ -13,16 +13,16 @@ class ReportsController < ApplicationController
   def new
     @report = Report.new
     @report.target_date = Date.today
-    @projects = current_user.projects
+    @projects = current_user.projects.active
   end
 
   def edit
-    @projects = current_user.projects
+    @projects = current_user.projects.active
   end
 
   def confirm
     # render text: params and return
-    @projects = current_user.projects
+    @projects = current_user.projects.active
 
     if request.post?
       @report = Report.new(report_params)
@@ -55,7 +55,7 @@ class ReportsController < ApplicationController
     if @report.save
       redirect_to reports_url, notice: '正常に日報が投稿されました。'
     else
-      @projects = current_user.projects
+      @projects = current_user.projects.active
       render :new
     end
   end
@@ -69,6 +69,9 @@ class ReportsController < ApplicationController
   end
 
   def destroy
+    unless current_user == @report.user || current_user.user_type == Settings.user_types.admin
+      redirect_to reports_url, alert: '削除権限がありません。' and return
+    end
     @report.destroy
     redirect_to reports_url, notice: '正常に日報が削除されました。'
   end

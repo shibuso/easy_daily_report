@@ -1,10 +1,7 @@
 = form_for [:confirm, @report], html: { class: 'form-horizontal' } do |f|
   - if @report.errors.any?
-    #error_explanation
-      %h2
-        = pluralize(@report.errors.count, "error")
-        prohibited this report from being saved:
-
+    .alert.alert-danger
+      = "#{@report.errors.count}件のエラーがあります。"
       %ul
         - @report.errors.full_messages.each do |message|
           %li= message

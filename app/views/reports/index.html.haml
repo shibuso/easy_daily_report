@@ -17,42 +17,6 @@
       = paginate @reports
 
       - @reports.each do |report|
-        - total_work_time = 0
-        %article.contents-main.mb15
-          %header.report-header
-            %h1
-              = image_tag report.user.gravatar_url, alt: 'gravatar', size: '40x40'
-              = report.user.name
-              = l(report.target_date, format: :long)
-
-          %section
-            %h2 本日の仕事
-            - report.works.each do |work|
-              %section
-                %h3
-                  %span.glyphicon.glyphicon-menu-right
-                  = work.project.name_with_customer
-                  ：
-                  = "#{work.time}時間"
-                  - total_work_time += work.time
-                = simple_format(h(work.detail))
-          %section
-            %h2 合計作業時間
-            = "#{total_work_time}時間"
-          %section
-            %h2 疑問点
-            = simple_format(h(report.question))
-            - if report.question.blank?
-              %p 特に無し
-          %section
-            %h2 感想
-            = simple_format(h(report.impression))
-            - if report.impression.blank?
-              %p 特に無し
-
-          %footer
-            - if current_user == report.user
-              = link_to '編集', edit_report_path(report)
-
+        = render partial: 'report', locals: {report: report}
 
       = paginate @reports

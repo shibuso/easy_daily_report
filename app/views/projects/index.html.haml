@@ -11,12 +11,17 @@
           %tr
             %th= t('activerecord.attributes.project.name')
             %th= t('activerecord.attributes.customer.name')
+            %th= t('activerecord.attributes.project.status')
+            %th 合計作業時間
             %th 操作
         %tbody
           - @projects.each do |project|
             %tr
               %td= project.name
               %td= project.customer.name
+              %td= t("activerecord.attributes.project.status_types.#{project.status}")
+              %td= "#{project.works.sum(:time)}時間"
+              // TODO project.works.joins(:report).where('reports.status = "active"').sum(:time)
               %td
                 = link_to '編集', edit_project_path(project), class: 'btn btn-xs btn-info'
                 = link_to '削除', project_path(project), method: :delete, class: 'btn btn-xs btn-danger', :'data-confirm' => '本当に削除してもよろしいでしょうか？'

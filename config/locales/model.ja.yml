@@ -22,6 +22,10 @@ ja:
         target_date: 日付
         question: 疑問点
         impression: 感想
+        status: 状態
+        status_types:
+          draft: 下書き
+          published: 公開
       user:
         name: 名前
         email: メールアドレス
@@ -37,6 +41,10 @@ ja:
         project_id: プロジェクト
         time: 時間
         detail: 詳細
+        status: 状態
+        status_types:
+          draft: 下書き
+          published: 公開
       works: # cocoonのため
         report_id: 日報
         project_id: プロジェクト

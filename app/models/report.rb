@@ -4,8 +4,19 @@ class Report < ActiveRecord::Base
 
   belongs_to :user
 
-  validates :target_date, presence: true
+  validates :user_id, :target_date, :status, presence: true
+  validates :status, inclusion: Settings.report.status_types.values
 
   scope :order_update_newest, -> { order('updated_at DESC') }
+  scope :draft, -> { where(status: Settings.report.status_types.draft) }
+  scope :published, -> { where(status: Settings.report.status_types.published) }
 
+  after_save :update_works_status, if: lambda { self.status == Settings.report.status_types.published }
+
+  def update_works_status
+    self.works.each do |work|
+      work.status = Settings.work.status_types.published
+      work.save
+    end
+  end
 end

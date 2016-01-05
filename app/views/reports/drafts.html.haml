@@ -1,0 +1,12 @@
+.container
+  %h1 下書き一覧
+
+  - if @reports.blank?
+    %p 下書きの日報はありません。
+
+  = paginate @reports
+
+  - @reports.each do |report|
+    = render partial: 'report', locals: {report: report}
+
+  = paginate @reports

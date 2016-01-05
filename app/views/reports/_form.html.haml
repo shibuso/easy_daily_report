@@ -33,9 +33,12 @@
     .col-sm-6
       = f.text_area :impression, class: 'form-control impression-form'
 
+  = f.hidden_field :status
+
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit '確認', class: 'btn btn-primary'
+      = link_to '下書き保存', '#', class: 'btn btn-info draft'
 
 :javascript
   $(function() {
@@ -60,20 +63,29 @@
       data('association-insertion-method', 'append').
       data('association-insertion-node', '.works');
 
-    $('.works')
-      .on('cocoon:after-insert', function(e, added_work) {
-        added_work.find('select').select2({
-          theme: 'bootstrap',
-          placeholder: '選択してください',
-          allowClear: true
-        });
-        $('input.work-time').blur(function() {
-          calcTotalWorkTime();
-        });
-      })
-      .on("cocoon:after-remove", function() {
+    $('.works').on('cocoon:after-insert', function(e, added_work) {
+      added_work.find('select').select2({
+        theme: 'bootstrap',
+        placeholder: '選択してください',
+        allowClear: true
+      });
+      $('input.work-time').blur(function() {
         calcTotalWorkTime();
       });
+    })
+    .on("cocoon:after-remove", function() {
+      calcTotalWorkTime();
+    });
+  });
+
+  $('input[type="submit"]').click(function(event) {
+    $('#report_status').val('#{Settings.report.status_types.published}');
+  });
+
+  $('.draft').click(function(event) {
+    event.preventDefault();
+    $('#report_status').val('#{Settings.report.status_types.draft}');
+    $($(this).closest('form')).submit();
   });
 
   function calcTotalWorkTime() {

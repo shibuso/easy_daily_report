@@ -40,7 +40,7 @@
       %p 特に無し
 
   %footer.report-menu
-    - unless controller.action_name == 'show'
+    - unless ['show', 'drafts'].include? controller.action_name
       = link_to 'パーマリンク', report_path(report)
     - if current_user == report.user
       = link_to '編集', edit_report_path(report)

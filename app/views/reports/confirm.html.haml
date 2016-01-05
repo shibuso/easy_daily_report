@@ -9,6 +9,7 @@
     = form_for(@report) do |f|
       %h1= "#{l(@report.target_date, format: :long)}の日報"
       = hidden_field_tag 'report[target_date]', params['report']['target_date']
+      = hidden_field_tag 'report[status]', Settings.report.status_types.published
 
       %section
         %h2
@@ -61,3 +62,4 @@
           = text_area_tag 'report[impression]', params['report']['impression'], readonly: true
 
       = f.submit class: 'btn btn-primary'
+      = link_to '戻る', '#', class: 'btn btn-default', onClick: 'history.back(); return false;'

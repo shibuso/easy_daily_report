@@ -1,7 +1,11 @@
 .container
   %ol.breadcrumb
-    %li= link_to '日報一覧', reports_path
+    %li= link_to 'Home', reports_path
     %li.active 日報新規投稿
 
   .contents-main
+    - if @draft_count > 0
+      .alert.alert-info
+        = link_to '下書きの日報があります。続きから書く場合はここをクリック。', drafts_reports_path
+
     = render 'form'

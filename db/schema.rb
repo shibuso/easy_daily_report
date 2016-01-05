@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150923105049) do
+ActiveRecord::Schema.define(version: 20151223233409) do
 
   create_table "customers", force: :cascade do |t|
     t.string   "name",       limit: 255, null: false
@@ -40,12 +40,13 @@ ActiveRecord::Schema.define(version: 20150923105049) do
   add_index "projects_users", ["user_id"], name: "index_projects_users_on_user_id", using: :btree
 
   create_table "reports", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4,     null: false
-    t.date     "target_date",               null: false
+    t.integer  "user_id",     limit: 4,                 null: false
+    t.date     "target_date",                           null: false
     t.text     "question",    limit: 65535
     t.text     "impression",  limit: 65535
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "status",      limit: 4,     default: 0, null: false
   end
 
   add_index "reports", ["user_id"], name: "index_reports_on_user_id", using: :btree
@@ -72,12 +73,13 @@ ActiveRecord::Schema.define(version: 20150923105049) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "works", force: :cascade do |t|
-    t.integer  "report_id",  limit: 4,     null: false
-    t.integer  "project_id", limit: 4,     null: false
+    t.integer  "report_id",  limit: 4,                 null: false
+    t.integer  "project_id", limit: 4,                 null: false
     t.float    "time",       limit: 24
     t.text     "detail",     limit: 65535
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "status",     limit: 4,     default: 0, null: false
   end
 
   add_index "works", ["project_id"], name: "index_works_on_project_id", using: :btree

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
     put :confirm, on: :member
     patch :confirm, on: :member
     post :confirm, on: :collection
+    get :drafts, on: :collection
   end
   resources :projects
   resources :customers, except: [:show]

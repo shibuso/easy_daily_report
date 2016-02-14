@@ -68,6 +68,7 @@ class ReportsController < ApplicationController
     @report = Report.new(report_params)
     @report.user_id = current_user.id
     @report.status = Settings.report.status_types.published
+    @report.published_at = Time.now
     if @report.save
       redirect_to reports_url, notice: '日報を投稿しました。'
     else
@@ -80,6 +81,7 @@ class ReportsController < ApplicationController
     redirect_to reports_url, alert: '編集権限がありません。' and return if @report.user != current_user
 
     if @report.update(report_params)
+      @report.update_attributes(published_at: Time.now) if @report.published_at.blank?
       redirect_to @report, notice: '日報を更新しました。'
     else
       render :edit

@@ -38,7 +38,7 @@
   .form-group
     .col-sm-offset-2.col-sm-10
       = f.submit '確認', class: 'btn btn-primary'
-      = link_to '下書き保存', '#', class: 'btn btn-info draft'
+      = link_to '下書き保存', '#', class: 'btn btn-info draft' if controller.action_name == 'new'
 
 :javascript
   $(function() {

@@ -68,3 +68,6 @@ gem 'jquery-ui-rails'
 
 # pagination
 gem 'kaminari'
+
+# Font Awesome
+gem 'font-awesome-rails'

@@ -23,6 +23,7 @@
               %td= "#{project.works.sum(:time)}時間"
               // TODO project.works.joins(:report).where('reports.status = "active"').sum(:time)
               %td
+                = link_to '詳細', project_path(project), class: 'btn btn-xs btn-default'
                 = link_to '編集', edit_project_path(project), class: 'btn btn-xs btn-info'
                 = link_to '削除', project_path(project), method: :delete, class: 'btn btn-xs btn-danger', :'data-confirm' => '本当に削除してもよろしいでしょうか？'
 

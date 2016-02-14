@@ -1,6 +1,6 @@
 - total_work_time = 0
-%article.contents-main.mb15
-  %header.report-header
+%article.contents-main.single-report.mb15
+  %header
     %h1
       = image_tag report.user.gravatar_url, alt: 'gravatar', size: '40x40'
       = report.user.name
@@ -8,7 +8,7 @@
 
   %section
     %h2
-      %span.glyphicon.glyphicon-triangle-right
+      %i.fa.fa-tasks
       本日の仕事
     - report.works.each do |work|
       %section
@@ -21,25 +21,27 @@
         = simple_format(h(work.detail))
   %section
     %h2
-      %span.glyphicon.glyphicon-triangle-right
+      %i.fa.fa-clock-o
       合計作業時間
     = "#{total_work_time}時間"
   %section
     %h2
-      %span.glyphicon.glyphicon-triangle-right
+      %i.fa.fa-question
       = t('activerecord.attributes.report.question')
     = simple_format(h(report.question))
     - if report.question.blank?
       %p 特に無し
   %section
     %h2
-      %span.glyphicon.glyphicon-triangle-right
+      %i.fa.fa-comment
       = t('activerecord.attributes.report.impression')
     = simple_format(h(report.impression))
     - if report.impression.blank?
       %p 特に無し
 
-  %footer.report-menu
+  %footer
+    - if report.published_at.present?
+      %span.published-at= l(report.published_at, format: :middle)
     - unless ['show', 'drafts'].include? controller.action_name
       = link_to 'パーマリンク', report_path(report)
     - if current_user == report.user

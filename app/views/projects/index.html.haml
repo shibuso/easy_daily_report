@@ -1,4 +1,8 @@
 .container
+  %ol.breadcrumb
+    %li= link_to 'Home', reports_path
+    %li.active プロジェクト一覧
+
   .contents-main
     %h1 プロジェクト一覧
 
@@ -17,13 +21,12 @@
         %tbody
           - @projects.each do |project|
             %tr
-              %td= project.name
+              %td=link_to project.name, project_path(project)
               %td= project.customer.name
               %td= t("activerecord.attributes.project.status_types.#{project.status}")
               %td= "#{project.works.sum(:time)}時間"
               // TODO project.works.joins(:report).where('reports.status = "active"').sum(:time)
               %td
-                = link_to '詳細', project_path(project), class: 'btn btn-xs btn-default'
                 = link_to '編集', edit_project_path(project), class: 'btn btn-xs btn-info'
                 = link_to '削除', project_path(project), method: :delete, class: 'btn btn-xs btn-danger', :'data-confirm' => '本当に削除してもよろしいでしょうか？'
 

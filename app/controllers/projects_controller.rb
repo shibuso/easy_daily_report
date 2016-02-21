@@ -3,10 +3,20 @@ class ProjectsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @projects = Project.all.order(id: :desc)
+    page = params[:page].presence || 1
+    @projects = Project.order(id: :desc).page(page).per(Settings.project.per)
   end
 
   def show
+    @year = params[:year].to_i == 0 ? Time.now.year : params[:year].to_i
+    @works = {}
+    (1..12).each do |month|
+     @works[month] = Work.select('reports.user_id AS user_id, users.name AS name, SUM(works.time) AS time').
+         joins(:report).
+         joins('INNER JOIN users ON reports.user_id = users.id').
+         where('works.project_id = ? AND reports.target_date BETWEEN ? AND ?', @project.id, Date.new(@year, month), Date.new(@year, month).end_of_month).
+         group('reports.user_id')
+    end
   end
 
   def new

@@ -1,4 +1,54 @@
-<p id="notice"><%= notice %></p>
+.container
 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+  %ol.breadcrumb
+    %li= link_to 'Home', reports_path
+    %li= link_to 'プロジェクト一覧', projects_path
+    %li.active プロジェクト詳細
+
+  .contents-main
+    %h1= @project.name
+
+    %table.table.table-striped.table-hover
+      %tr
+        %th= t 'activerecord.attributes.customer.name'
+        %td= @project.customer.name
+      %tr
+        %th= t 'activerecord.attributes.project.status'
+        %td= t("activerecord.attributes.project.status_types.#{@project.status}")
+      %tr
+        %th 合計作業時間
+        %td= "#{@project.works.sum(:time)}時間"
+      %tr
+        %th= t 'activerecord.attributes.project.user_ids'
+        %td
+          - @project.users.each do |user|
+            = user.name
+            = ',' if user != @project.users.last
+
+    %h2= "#{@year}年"
+
+    = link_to '＜前の年へ', project_path(@project, year: (@year - 1)), class: 'btn btn-default'
+    = link_to '次の年へ＞', project_path(@project, year: (@year + 1)), class: 'btn btn-default'
+
+    - @works.each_slice(4) do |temp_works|
+      .works-calendar
+        =# temp_works
+        - temp_works.each do |month, monthly_works|
+          .works-calendar-month
+            %table{border: 1}
+              %tr
+                %th{colspan: 3}= "#{month}月"
+              - if monthly_works.present?
+                - total_time = monthly_works.map(&:time).sum
+                %tr
+                  %th= t 'activerecord.attributes.project.user_ids'
+                  %th= t 'activerecord.attributes.works.time'
+                  %th 稼働率
+                - monthly_works.each do |user_works|
+                  %tr
+                    %td= user_works.name
+                    %td.text-right= "#{user_works.time}時間"
+                    %td.text-right= "#{((user_works.time / total_time) * 100).round(1)}%"
+              %tr
+                %th 合計
+                %td.text-right{colspan: 2}= "#{total_time || 0}時間"

@@ -1,4 +1,9 @@
 .container
+
+  %ol.breadcrumb
+    %li= link_to 'Home', reports_path
+    %li.active 日報下書き一覧
+
   %h1 下書き一覧
 
   - if @reports.blank?

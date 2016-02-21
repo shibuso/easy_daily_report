@@ -2,10 +2,10 @@
 
 .container
   %ol.breadcrumb
-    %li= link_to '日報一覧', reports_path
+    %li= link_to 'Home', reports_path
     %li.active 日報投稿確認
 
-  %article.contents-main
+  %article.contents-main.single-report
     = form_for(@report) do |f|
       %h1= "#{l(@report.target_date, format: :long)}の日報"
       = hidden_field_tag 'report[target_date]', params['report']['target_date']
@@ -13,7 +13,7 @@
 
       %section
         %h2
-          %span.glyphicon.glyphicon-triangle-right
+          %i.fa.fa-tasks
           本日の仕事
         - params['report']['works_attributes'].each do |key, work|
           %section
@@ -36,14 +36,14 @@
 
       %section
         %h2
-          %span.glyphicon.glyphicon-triangle-right
+          %i.fa.fa-clock-o
           合計作業時間
         = "#{total_work_time}時間"
 
 
       %section
         %h2
-          %span.glyphicon.glyphicon-triangle-right
+          %i.fa.fa-question
           = t('activerecord.attributes.report.question')
         = simple_format(h(@report.question))
         - if @report.question.blank?
@@ -53,7 +53,7 @@
 
       %section
         %h2
-          %span.glyphicon.glyphicon-triangle-right
+          %i.fa.fa-comment
           = t('activerecord.attributes.report.impression')
         = simple_format(h(@report.impression))
         - if @report.impression.blank?

@@ -19,7 +19,7 @@
 
 body {
   padding-top: 70px;
-  background-color: #f8faf8;
+  background-color: #E1EBF5;
 }
 
 h1 {
@@ -87,4 +87,26 @@ article.single-report {
 
 .impression-form {
   min-height: 150px;
+}
+
+.works-calendar {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+
+  .works-calendar-month {
+    flex: 1;
+    margin: 10px;
+
+    table {
+      width: 100%;
+
+      th, td {
+        padding: 5px;
+      }
+
+    }
+  }
 }

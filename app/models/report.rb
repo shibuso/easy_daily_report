@@ -19,4 +19,12 @@ class Report < ActiveRecord::Base
       work.save
     end
   end
+
+  def draft?
+    self.status == Settings.report.status_types.draft
+  end
+
+  def published?
+    self.status == Settings.report.status_types.published
+  end
 end

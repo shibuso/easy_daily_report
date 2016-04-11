@@ -1,0 +1,21 @@
+各位
+
+お疲れさまです、<%= @report.user.name %>です。
+
+【本日の仕事】
+<% total_work_time = 0 -%>
+<% @report.works.each do |work| -%>
+「<%= work.project.name_with_customer %>」<%= work.time %>時間
+<%= work.detail %>
+<% total_work_time += work.time -%>
+
+<% end -%>
+＞合計作業時間：<%= total_work_time %>時間
+
+【疑問点】
+<%= @report.question.presence || '特に無し' %>
+
+【感想】
+<%= @report.impression.presence || '特に無し' %>
+
+URL: <%= report_url(@report, host: Settings.host) %>

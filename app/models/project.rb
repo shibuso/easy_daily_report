@@ -9,6 +9,6 @@ class Project < ActiveRecord::Base
   scope :active, -> { where(status: Settings.project.status_types.active) }
 
   def name_with_customer
-    "#{customer.name}/#{name}"
+    "#{customer.name} / #{name}"
   end
 end

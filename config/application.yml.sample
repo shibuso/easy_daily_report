@@ -1,14 +1,26 @@
 defaults: &defaults
+  host: 'PLEASE FILL'
+  mail:
+    from: 'PLEASE FILL'
+    to:   'PLEASE FILL'
   project:
+    per: 100
     status_types:
       active: 'active'
       closed: 'closed'
   report:
     per: 25
+    status_types:
+      draft: 0
+      published: 1
   user_types:
     admin:   'admin'
     member:  'member'
     partner: 'partner'
+  work:
+    status_types:
+      draft: 0
+      published: 1
 
 development:
   <<: *defaults

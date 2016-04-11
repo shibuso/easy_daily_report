@@ -41,4 +41,5 @@ Rails.application.configure do
 
   # set action mailer default url
   config.action_mailer.default_url_options = { :host => 'localhost:8080' }
+  config.action_mailer.delivery_method = :letter_opener
 end

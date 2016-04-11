@@ -61,5 +61,8 @@
         .hidden
           = text_area_tag 'report[impression]', params['report']['impression'], readonly: true
 
-      = f.submit class: 'btn btn-primary'
+      - if request.post? || @report.published_at.blank?
+        = f.submit '投稿する', class: 'btn btn-primary'
+      - else
+        = f.submit '更新する', class: 'btn btn-primary'
       = link_to '戻る', '#', class: 'btn btn-default', onClick: 'history.back(); return false;'

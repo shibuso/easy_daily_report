@@ -1,0 +1,10 @@
+.container
+
+  %ol.breadcrumb
+    %li= link_to 'ユーザ一覧', users_path
+    %li.active ユーザ編集
+
+  .contents-main
+    %h1= "#{@user.name}の編集"
+
+    = render 'form'

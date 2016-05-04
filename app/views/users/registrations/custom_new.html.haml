@@ -15,12 +15,12 @@
       .form-group
         = f.label :name, class: 'col-sm-2 control-label'
         .col-sm-6
-          = f.text_field :name, autofocus: true
+          = f.text_field :name, autofocus: true, class: 'form-control'
 
       .form-group
         = f.label :email, class: 'col-sm-2 control-label'
         .col-sm-6
-          = f.email_field :email
+          = f.email_field :email, class: 'form-control'
 
       .form-group
         = f.label :user_type, class: 'col-sm-2 control-label'
@@ -38,12 +38,12 @@
       .form-group
         = f.label :password, class: 'col-sm-2 control-label'
         .col-sm-6
-          = f.password_field :password, autocomplete: 'off'
+          = f.password_field :password, autocomplete: 'off', class: 'form-control'
 
       .form-group
         = f.label :password_confirmation, class: 'col-sm-2 control-label'
         .col-sm-6
-          = f.password_field :password_confirmation, autocomplete: 'off'
+          = f.password_field :password_confirmation, autocomplete: 'off', class: 'form-control'
 
       .form-group
         .col-sm-offset-2.col-sm-10

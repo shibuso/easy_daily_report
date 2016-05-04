@@ -12,6 +12,11 @@
     %nav.navbar.navbar-default.navbar-fixed-top
       .container
         .navbar-header
+          %button{type: 'button', class: 'navbar-toggle collapsed', data: { toggle: 'collapse', target: '#navbar' }, aria: { expanded: 'false' }}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
           = link_to '日報システム', reports_path, class: 'navbar-brand'
         #navbar.navbar-collapse.collapse
           %ul.nav.navbar-nav
@@ -26,6 +31,7 @@
                 メニュー
                 %span.caret
               %ul.dropdown-menu
+                %li= link_to 'ユーザ情報編集', edit_user_path(current_user)
                 %li= link_to 'ログアウト', destroy_user_session_path, method: :delete
 
     = yield

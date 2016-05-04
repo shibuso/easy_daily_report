@@ -19,5 +19,5 @@ Rails.application.routes.draw do
   end
   resources :projects
   resources :customers, except: [:show]
-  resources :users, only: [:index]
+  resources :users, only: [:index, :edit, :update]
 end

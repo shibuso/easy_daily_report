@@ -4,7 +4,11 @@ class ReportsController < ApplicationController
 
   def index
     page = params[:page].presence || 1
-    @reports = Report.published.order_update_newest.page(page).per(Settings.report.per)
+    if current_user.partner?
+      @reports = current_user.reports.published.order_update_newest.page(page).per(Settings.report.per)
+    else
+      @reports = Report.published.order_update_newest.page(page).per(Settings.report.per)
+    end
   end
 
   def show

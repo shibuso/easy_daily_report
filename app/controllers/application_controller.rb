@@ -13,4 +13,11 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:sign_up).push(:name, :user_type)
   end
+
+  def without_partner
+    redirect_to reports_url and return if current_user.partner?
+  rescue => e
+    flash.alert(e.message)
+    redirect_to root_url
+  end
 end

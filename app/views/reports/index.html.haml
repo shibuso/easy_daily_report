@@ -19,4 +19,8 @@
       - @reports.each do |report|
         = render partial: 'report', locals: {report: report}
 
+      - if @reports.blank?
+        .contents-main
+          %p 現在投稿された日報はありません。
+
       = paginate @reports

@@ -9,7 +9,7 @@ defaults: &defaults
       active: 'active'
       closed: 'closed'
   report:
-    per: 25
+    per: 10
     status_types:
       draft: 0
       published: 1

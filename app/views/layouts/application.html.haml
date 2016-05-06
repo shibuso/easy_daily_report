@@ -21,9 +21,9 @@
         #navbar.navbar-collapse.collapse
           %ul.nav.navbar-nav
             %li= link_to '新規投稿', new_report_path
-            %li= link_to 'プロジェクト', projects_path
-            %li= link_to '顧客', customers_path
-            - if current_user.admin? || current_user.member?
+            - unless current_user.partner?
+              %li= link_to 'プロジェクト', projects_path
+              %li= link_to '顧客', customers_path
               %li= link_to 'ユーザ', users_path
           %ul.nav.navbar-nav.navbar-right
             %li.dropdown

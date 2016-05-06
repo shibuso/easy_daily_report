@@ -1,10 +1,11 @@
 .container
 
-  %ol.breadcrumb
-    %li= link_to 'ユーザ一覧', users_path
-    %li.active ユーザ編集
+  - unless current_user.partner?
+    %ol.breadcrumb
+      %li= link_to 'ユーザ一覧', users_path
+      %li.active ユーザ編集
 
   .contents-main
-    %h1= "#{@user.name}の編集"
+    %h1= "#{@user.name}さんの編集"
 
     = render 'form'

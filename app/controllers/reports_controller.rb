@@ -74,7 +74,7 @@ class ReportsController < ApplicationController
     @report.status = Settings.report.status_types.published
     @report.published_at = Time.now
     if @report.save
-      ReportMailer.send_report(@report).deliver
+      ReportMailer.send_report(@report).deliver if Settings.mail.is_send
       redirect_to reports_url, notice: '日報を投稿しました。'
     else
       @projects = current_user.projects.active
@@ -88,7 +88,7 @@ class ReportsController < ApplicationController
     if @report.update(report_params)
       if @report.published_at.blank?
         @report.update_attributes(published_at: Time.now)
-        ReportMailer.send_report(@report).deliver
+        ReportMailer.send_report(@report).deliver if Settings.mail.is_send
       end
       redirect_to @report, notice: '日報を更新しました。'
     else

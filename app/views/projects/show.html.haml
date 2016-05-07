@@ -5,7 +5,10 @@
     %li.active プロジェクト詳細
 
   .contents-main
-    %h1= @project.name
+    .clearfix.mb15
+      .pull-right.mt20
+        = link_to '編集', edit_project_path(@project), class: 'btn btn-info'
+      %h1= @project.name
 
     %table.table.table-striped.table-hover
       %tr

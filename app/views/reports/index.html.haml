@@ -5,13 +5,16 @@
         = image_tag current_user.gravatar_url, alt: 'gravatar', size: '40x40'
         = current_user.name
         .report_num
-          レポート数：
+          %strong レポート数：
           = current_user.reports.count
         .projects
-          参加プロジェクト
-          %ul
-            - current_user.projects.each do |project|
-              %li= project.name_with_customer
+          %strong 参加プロジェクト
+          - if current_user.projects.present?
+            %ul
+              - current_user.projects.each do |project|
+                %li= link_to_unless current_user.partner?, project.name_with_customer, project_path(project)
+          - else
+            %p 現在参加しているプロジェクトはありません。
 
     .col-sm-9
       = paginate @reports

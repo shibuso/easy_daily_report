@@ -1,6 +1,7 @@
 defaults: &defaults
   host: 'PLEASE FILL'
   mail:
+    is_send: false
     from: 'PLEASE FILL'
     to:   'PLEASE FILL'
   project:
